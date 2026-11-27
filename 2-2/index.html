@@ -58,7 +58,7 @@
         <section class="scene" data-title="대기는 아무 빛이나 막지 않는다 — 선택적 흡수">
           <div class="story"><div class="who">👩‍🚀</div><div class="say"><span class="name">한별</span>“먼저 이상한 점부터요. 대기가 빛을 막는다면 햇빛도 못 들어와야 하잖아요? 그런데 낮은 환합니다. 대기는 <b>파장에 따라 아주 다르게</b> 행동해요. 파장을 0.1 µm부터 40 µm까지 훑으면서, 어떤 빛이 막히고 어떤 빛이 통과하는지 직접 확인해 보세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap studio"><canvas id="a-sp" width="900" height="468"></canvas></div>
+            <div class="canvas-wrap studio" data-kind-pos="br"><canvas id="a-sp" width="900" height="468"></canvas></div>
             <div class="controls">
               <div class="ctrl-group" style="flex:1 1 100%">
                 <div class="ctrl-label">살펴볼 빛의 파장<span class="val" id="a-sp-w-val">2.00 µm</span></div>
@@ -78,7 +78,7 @@
         <section class="scene" data-title="대기가 없는 행성의 온도 — 복사 평형 온도">
           <div class="story"><div class="who">👩‍🚀</div><div class="say"><span class="name">한별</span>“이제 계산입니다. 어떤 천체든 받는 만큼 내보내면 온도가 일정해져요. 이 온도를 <b><span data-view="law:복사 평형">복사 평형</span> 온도</b>라고 합니다. 식은 T = [S(1−A) / 4σ]<sup>1/4</sup>, σ = 5.67×10⁻⁸ W/m²K⁴예요. 태양 상수와 반사율을 바꿔 가며 행성을 만들어 보세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap studio"><canvas id="a-eq" width="900" height="400"></canvas></div>
+            <div class="canvas-wrap studio" data-kind="model calc" data-kind-pos="br"><canvas id="a-eq" width="900" height="400"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">태양 상수 S (W/m²)<span class="val" id="a-eq-s-val">1,200</span></div>
@@ -106,7 +106,7 @@
             <tr><td>30</td><td>25</td><td>45</td><td>104</td><td>8</td><td>20</td><td>9</td></tr></table>
           </div>
           <div class="stage-card">
-            <div class="canvas-wrap studio"><canvas id="a-bal" width="900" height="500"></canvas></div>
+            <div class="canvas-wrap studio" data-kind="text" data-kind-pos="bl"><canvas id="a-bal" width="900" height="500"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">① 대기·구름이 우주로 내보내는 지구 복사<span class="val" id="a-bal-e-val">50</span></div>
@@ -143,6 +143,15 @@
           </div>
         </section>
       </div>
+      <details class="model-gap"><summary>🔍 이 모형이 실제와 다른 점</summary>
+      <ul>
+      <li><b>모형에서는</b> 대기를 한 겹의 고른 판으로 보고, 빛이 위에서 아래로 곧게 지나간다고 봅니다. <b>실제로는</b> 햇빛이 비스듬히 들어올수록(아침·저녁, 고위도) 지나는 대기가 길어져 더 많이 흡수되고 흩어지며, 구름은 거의 모든 파장의 빛을 가립니다.</li>
+      <li><b>모형에서는</b> 행성을 온도가 하나뿐인 공으로 보고, 받는 에너지 S(1−A)/4와 내보내는 에너지 σT⁴가 같아지는 온도를 계산합니다. <b>실제로는</b> 달처럼 대기가 없는 천체는 낮과 밤의 온도 차가 수백 ℃에 이르고, 지구의 반사율(약 0.3)도 구름과 얼음의 양에 따라 조금씩 바뀝니다.</li>
+      <li><b>모형에서는</b> 지구 전체의 1년 평균 열수지를 100 단위의 정수 몇 개로 나타내고, 들어오는 양과 나가는 양이 정확히 같습니다. <b>실제로는</b> 이 값들이 위성 관측과 계산으로 추정한 값이라 연구마다 조금씩 다르고, 지금의 지구는 받는 에너지가 내보내는 에너지보다 조금 많아(1 m²마다 1 W 안팎) 완전한 평형이 아닙니다.</li>
+      <li><b>모형에서는</b> 위도별 에너지 수지를 매끈한 두 곡선으로 그렸습니다. <b>실제로는</b> 같은 위도에서도 대륙과 바다, 구름의 양에 따라 값이 다르고, 남는 열은 대기와 해류가 함께 나르며 그 몫은 위도에 따라 다릅니다.</li>
+      </ul>
+      <p class="gap-src"><b>자료 출처</b> · 그림의 수치는 수업용으로 단순하게 정한 값입니다(투과율 곡선은 주요 흡수대만 넣어 만든 모양). 태양 상수 1,361 W/m², 지구 반사율 0.30, 열수지 100 단위 값은 교과서에 실린 대푯값입니다. 바탕 개념: 2022 개정 교육과정 지구시스템과학 교과서(대기의 선택적 흡수와 열수지).</p>
+      </details>
       <p class="teacher-note">교사용: 주소 끝에 <a href="?open=1">?open=1</a>을 붙이면 교사 미리 보기로 열립니다. · 전자칠판용 <a href="board-01.html">칠판 강의 화면</a> · 빈칸 번호가 같은 <a href="sheet-01.html">개념정리 학습지</a>(<a href="sheet-01.html?key=1">정답</a>) · <a href="form-01.html">형성평가</a>(<a href="form-01.html?key=1">정답</a> · <a href="form-01.html?show=1">칠판에 띄우기</a>)</p>
     </section>
 
@@ -169,7 +178,7 @@
           <div class="story"><div class="who">👩‍🔬</div><div class="say"><span class="name">기상 조사관 유나</span>“공기 덩어리는 오르면 부피가 커지면서 스스로 식습니다. 밖과 열을 주고받지 않는 <b><span data-view="law:단열과정">단열 변화</span></b>죠. 그러다 기온이 이슬점까지 내려가면 수증기가 응결해 구름이 생기고, 그 뒤로는 응결할 때 나오는 숨은열 때문에 <b>천천히</b> 식습니다. 산기슭의 기온과 이슬점을 바꿔 가며 직접 넘겨 보세요.”</div></div>
           <figure class="hero-art"><img src="img/foehn.webp" alt="바닷가 마을과 산맥, 산 너머 들판을 블록처럼 잘라 낸 모형. 바다 쪽 산비탈은 구름에 덮여 비가 내리고, 산 너머 들판은 맑고 누렇게 말라 있으며 농부가 마른 논을 바라본다. 앞면 단면에 땅속 지층이 보인다." width="900" height="900" loading="lazy"><figcaption><b>비는 산이 다 가져가고, 넘어온 바람은 뜨겁습니다</b> 동해의 축축한 바람이 태백산맥을 타고 오르면 공기가 식어 구름이 되고, 영동 쪽 비탈에 비를 뿌립니다. 수증기를 잃고 산을 넘은 공기는 내려오면서 100 m마다 약 1 ℃씩 데워집니다. 그래서 같은 바람인데도 영서에는 덥고 메마른 높새바람이 붑니다. <span class="art-note">⚠ 산의 높이를 크게 과장했고, 산맥의 폭과 마을 크기도 실제 비율이 아닙니다.</span></figcaption></figure>
           <div class="stage-card">
-            <div class="canvas-wrap" style="background:#e4eaf1"><canvas id="b-foehn" width="900" height="526"></canvas></div>
+            <div class="canvas-wrap" style="background:#e4eaf1" data-kind="model calc" data-kind-pos="bl"><canvas id="b-foehn" width="900" height="526"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">산기슭(동쪽)의 기온<span class="val" id="b-foehn-t-val">20 ℃</span></div>
@@ -193,7 +202,7 @@
         <section class="scene" data-title="계속 올라갈까, 되돌아올까 — 대기 안정도">
           <div class="story"><div class="who">👩‍🔬</div><div class="say"><span class="name">유나</span>“공기 덩어리가 계속 올라갈지는 <b>주변 대기의 기온이 높이에 따라 얼마나 빨리 떨어지는가</b>가 정합니다. 주변이 덩어리보다 더 빨리 식으면 덩어리는 늘 주변보다 따뜻해서 계속 올라가요. 주변 대기의 기온 감률을 바꿔 가며 단열선도를 읽어 보세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap studio"><canvas id="b-stab" width="900" height="516"></canvas></div>
+            <div class="canvas-wrap studio" data-kind-pos="br"><canvas id="b-stab" width="900" height="516"></canvas></div>
             <div class="controls">
               <div class="ctrl-group" style="flex:1 1 100%">
                 <div class="ctrl-label">공기 덩어리의 상태</div>
@@ -220,7 +229,7 @@
         <section class="scene" data-title="구름은 어떻게 비가 되는가">
           <div class="story"><div class="who">👩‍🔬</div><div class="say"><span class="name">유나</span>“구름이 생겼다고 바로 비가 오지는 않아요. 구름 알갱이는 지름이 0.02 mm쯤이라 떨어지다가 증발해 버립니다. 빗방울이 되려면 지름이 100배쯤 커져야 해요. 구름 꼭대기를 높여 가며, 구름 속 온도가 어떻게 달라지고 어떤 방법으로 빗방울이 자라는지 보세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap studio"><canvas id="b-rain" width="900" height="440"></canvas></div>
+            <div class="canvas-wrap studio" data-kind-pos="br"><canvas id="b-rain" width="900" height="440"></canvas></div>
             <div class="controls">
               <div class="ctrl-group" style="flex:1 1 100%">
                 <div class="ctrl-label">구름 꼭대기의 높이 (km)<span class="val" id="b-rain-h-val">4.0</span></div>
@@ -251,6 +260,15 @@
           <div class="stage-card" style="padding:6px 0 4px"><div id="wkB"></div></div>
         </section>
       </div>
+      <details class="model-gap"><summary>🔍 이 모형이 실제와 다른 점</summary>
+      <ul>
+      <li><b>모형에서는</b> 공기 덩어리가 높이 1,500 m의 매끈한 산 하나를 그대로 타고 넘고, 구름 속에서 응결한 물은 모두 바람받이 쪽에 비로 내린다고 봅니다. <b>실제로는</b> 공기가 산을 넘지 못하고 돌아가거나 막히기도 하고, 구름 물방울 일부는 산을 넘어가 다시 증발하며, 산 너머로 내려오는 공기가 처음부터 산 위쪽에 있던 건조한 공기일 때도 있습니다.</li>
+      <li><b>모형에서는</b> 주변 대기의 기온 감률을 높이 3,000 m까지 하나의 값으로 고정하고, 공기 덩어리는 주변과 섞이지도 열을 주고받지도 않습니다. <b>실제 대기는</b> 높이마다 기온 감률이 달라 위로 갈수록 기온이 높아지는 역전층이 끼어 있기도 하고, 올라가는 공기는 주변 공기를 끌어들여 섞입니다.</li>
+      <li><b>모형에서는</b> 구름 꼭대기의 기온 하나로 빙정설과 병합설을 가릅니다. <b>실제로는</b> 0 ℃보다 훨씬 차가운 곳(−30 ℃ 아래)에도 얼지 않은 과냉각 물방울이 남아 있을 수 있고, 얼음 알갱이가 생기려면 먼지 같은 빙정핵이 필요해 같은 기온이라도 구름마다 빙정의 양이 다릅니다.</li>
+      <li><b>모형 그림의</b> 산은 폭에 비해 높이를 크게 과장했습니다. <b>실제 산맥은</b> 높이에 비해 폭이 수십 배 넓어 비탈이 훨씬 완만합니다.</li>
+      </ul>
+      <p class="gap-src"><b>자료 출처</b> · 장면의 기온·이슬점·산 높이는 수업용으로 단순하게 정한 값입니다. 이 소단원의 실제 자료 카드: NASA 랭글리 연구소 POWER 프로젝트 일별 자료(2024년), 창원 웅천 부근(북위 35.13°, 동경 128.70°)의 지상 2 m 기온과 이슬점 · 기상청 날씨누리 과거 관측 일별 자료, 창원(155) 일강수량. 바탕 개념: 2022 개정 교육과정 지구시스템과학 교과서(단열 변화와 대기 안정도).</p>
+      </details>
       <p class="teacher-note">교사용: 주소 끝에 <a href="?open=1">?open=1</a>을 붙이면 교사 미리 보기로 열립니다. · 전자칠판용 <a href="board-02.html">칠판 강의 화면</a> · 빈칸 번호가 같은 <a href="sheet-02.html">개념정리 학습지</a>(<a href="sheet-02.html?key=1">정답</a>) · <a href="form-02.html">형성평가</a>(<a href="form-02.html?key=1">정답</a> · <a href="form-02.html?show=1">칠판에 띄우기</a>)</p>
     </section>
 
@@ -277,7 +295,7 @@
         <section class="scene" data-title="위로 갈수록 가벼워진다 — 기압의 연직 분포">
           <div class="story"><div class="who">🧑‍🏫</div><div class="say"><span class="name">도윤</span>“어떤 높이의 기압은 <b>그 위에 쌓인 공기 기둥의 무게</b>와 같습니다. 위로 올라갈수록 머리 위에 남은 공기가 줄어드니 기압이 낮아지죠. 그런데 줄어드는 모양이 직선이 아닙니다. 고도 슬라이더를 움직여 확인해 보세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap studio"><canvas id="c-prof" width="900" height="516"></canvas></div>
+            <div class="canvas-wrap studio" data-kind="model calc" data-kind-pos="br"><canvas id="c-prof" width="900" height="516"></canvas></div>
             <div class="controls">
               <div class="ctrl-group" style="flex:1 1 100%">
                 <div class="ctrl-label">고도 (km)<span class="val" id="c-prof-z-val">5.0</span></div>
@@ -297,7 +315,7 @@
         <section class="scene" data-title="공기 저울 — 정역학적 균형">
           <div class="story"><div class="who">🧑‍🏫</div><div class="say"><span class="name">도윤</span>“두께 <b>100 m</b>, 밑면적 <b>1 m²</b>짜리 공기 층을 하나 떼어 저울에 올려 봅시다. 아래에서 받치는 기압이 위에서 누르는 기압보다 큰 만큼 <b>위로 미는 힘</b>이 생기고, 공기 자신의 <b>무게</b>는 아래로 당깁니다. 두 힘이 같으면 층은 가만히 있어요. 아래 면의 기압과 공기의 기온을 바꿔 가며 저울을 맞춰 보세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap studio"><canvas id="c-hydro" width="900" height="440"></canvas></div>
+            <div class="canvas-wrap studio" data-kind-pos="br"><canvas id="c-hydro" width="900" height="440"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">아래 면의 기압 (hPa) — 위 면은 1,000.0 hPa 고정<span class="val" id="c-hydro-p-val">1011.3</span></div>
@@ -320,7 +338,7 @@
         <section class="scene" data-title="저울은 언제 기우는가 — 연직 운동의 네 가지 원인">
           <div class="story"><div class="who">🧑‍🏫</div><div class="say"><span class="name">도윤</span>“실제 대기는 거의 언제나 정역학적 균형에 가깝습니다. 그런데 아주 조금만 기울어도 공기는 위아래로 움직이고, 그 움직임이 구름과 비를 만듭니다. 균형을 깨뜨리는 원인은 크게 네 가지예요. 하나씩 세기를 올려 가며 상승 속도를 재 보세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap studio"><canvas id="c-vert" width="900" height="470"></canvas></div>
+            <div class="canvas-wrap studio" data-kind-pos="br"><canvas id="c-vert" width="900" height="470"></canvas></div>
             <div class="controls">
               <div class="ctrl-group" style="flex:1 1 100%">
                 <div class="ctrl-label">살펴볼 원인</div>
@@ -360,6 +378,15 @@
           <div class="stage-card" style="padding:6px 0 4px"><div id="wkC"></div></div>
         </section>
       </div>
+      <details class="model-gap"><summary>🔍 이 모형이 실제와 다른 점</summary>
+      <ul>
+      <li><b>모형에서는</b> 높이에 따른 기압을 국제 표준 대기의 식(높이 11 km까지는 기온이 1 km마다 6.5 ℃씩 낮아지고, 그 위는 기온이 일정하다고 둔 식)으로 계산합니다. <b>실제 기압은</b> 그날의 기온과 고기압·저기압의 배치에 따라 달라져서, 같은 높이에서도 날마다 수십 hPa씩 차이가 납니다.</li>
+      <li><b>모형에서는</b> 두께 100 m, 밑넓이 1 m²인 공기 상자 하나를 골라 그 속의 기온과 밀도를 하나의 값으로 둡니다. <b>실제로는</b> 상자 속에서도 높이에 따라 밀도가 조금씩 달라지고, 수증기가 많은 공기일수록 같은 기온에서 더 가볍습니다.</li>
+      <li><b>모형에서는</b> 지표 가열·지형·전선·수렴의 네 원인을 하나씩 따로 작동시켜 상승 속도를 간단한 식으로 냅니다. <b>실제로는</b> 여러 원인이 함께 겹쳐 일어나고, 전선이나 저기압의 넓은 상승 기류는 초속 몇 cm 정도로 느린 반면 적란운 속 상승 기류는 초속 10 m를 넘기도 합니다.</li>
+      <li><b>모형 그림에서는</b> 공기 분자를 크게 그리고 개수를 아주 줄였습니다. <b>실제로는</b> 지표 근처 공기 1 cm³ 속에만 분자가 약 2.5×10¹⁹개 들어 있습니다.</li>
+      </ul>
+      <p class="gap-src"><b>자료 출처</b> · 장면의 기압 곡선은 국제 표준 대기 식으로 계산한 값이고, 그 밖의 수치는 수업용으로 단순하게 정한 값입니다. 이 소단원의 실제 자료 카드: NASA POWER 기후값(2001~2020, MERRA-2 재분석)의 지표 기압 — 부산 격자와 라싸 격자(라싸 격자는 고원 평균 높이라 실제 라싸 시내보다 약 670 m 높음). 바탕 개념: 2022 개정 교육과정 지구시스템과학 교과서(기압의 연직 분포와 정역학적 균형).</p>
+      </details>
       <p class="teacher-note">교사용: 주소 끝에 <a href="?open=1">?open=1</a>을 붙이면 교사 미리 보기로 열립니다. · 전자칠판용 <a href="board-03.html">칠판 강의 화면</a> · 빈칸 번호가 같은 <a href="sheet-03.html">개념정리 학습지</a>(<a href="sheet-03.html?key=1">정답</a>) · <a href="form-03.html">형성평가</a>(<a href="form-03.html?key=1">정답</a> · <a href="form-03.html?show=1">칠판에 띄우기</a>)</p>
     </section>
 
@@ -386,7 +413,7 @@
         <section class="scene" data-title="힘 두 개로 부는 바람 — 지균풍">
           <div class="story"><div class="who">🧑‍✈️</div><div class="say"><span class="name">세영</span>“마찰이 거의 없는 상공에서는 힘이 둘뿐이에요. 등압선에 수직으로 밀어 주는 <b>기압 경도력</b>, 그리고 움직이기 시작한 공기를 북반구에서 오른쪽으로 휘게 하는 <b><span data-view="law:코리올리 효과">전향력</span></b>. 두 힘이 크기가 같고 방향이 반대가 되면 바람은 등압선과 나란해집니다. 등압선 간격과 위도를 바꿔 보세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap studio"><canvas id="d-geo" width="900" height="450"></canvas></div>
+            <div class="canvas-wrap studio" data-kind="model calc" data-kind-pos="br"><canvas id="d-geo" width="900" height="450"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">이웃한 등압선 사이의 거리 (km)<span class="val" id="d-geo-d-val">500</span></div>
@@ -412,7 +439,7 @@
         <section class="scene" data-title="휘어진 등압선 위에서 — 경도풍">
           <div class="story"><div class="who">🧑‍✈️</div><div class="say"><span class="name">세영</span>“실제 일기도의 등압선은 곧지 않고 둥글게 휘어 있어요. 원을 따라 도는 공기에는 바깥으로 향하는 <b>원심력</b>이 더해집니다. 그러면 같은 기압 경도력이라도 저기압 주위와 고기압 주위의 풍속이 달라져요. 곡률 반지름을 바꿔 가며 확인해 보세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap studio"><canvas id="d-grad" width="900" height="440"></canvas></div>
+            <div class="canvas-wrap studio" data-kind="model calc" data-kind-pos="br"><canvas id="d-grad" width="900" height="440"></canvas></div>
             <div class="controls">
               <div class="ctrl-group" style="flex:1 1 100%">
                 <div class="ctrl-label">어느 쪽 주위의 바람인가</div>
@@ -439,7 +466,7 @@
         <section class="scene" data-title="땅에 닿으면 비스듬해진다 — 지상풍">
           <div class="story"><div class="who">🧑‍✈️</div><div class="say"><span class="name">세영</span>“지표 가까이에서는 <b>마찰력</b>이 하나 더 붙습니다. 마찰은 바람을 느리게 하고, 느려지면 전향력도 함께 작아져요. 그러면 기압 경도력이 남아 바람이 저기압 쪽으로 끌려 들어갑니다. 지표의 거칠기를 바꿔 가며 등압선과 이루는 각을 재 보세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap studio"><canvas id="d-sfc" width="900" height="450"></canvas></div>
+            <div class="canvas-wrap studio" data-kind="model calc" data-kind-pos="br"><canvas id="d-sfc" width="900" height="450"></canvas></div>
             <div class="controls">
               <div class="ctrl-group" style="flex:1 1 100%">
                 <div class="ctrl-label">지표의 마찰 세기 (10⁻⁶/s)<span class="val" id="d-sfc-k-val">30</span></div>
@@ -460,7 +487,7 @@
         <section class="scene" data-title="지구를 감아 도는 물결 — 행성파">
           <div class="story"><div class="who">🧑‍✈️</div><div class="say"><span class="name">세영</span>“이제 한파로 돌아갑시다. 중위도 상공의 편서풍은 곧게 불지 않고 남북으로 굽이칩니다. <b>전향력이 위도에 따라 달라지기 때문</b>에 생기는 지구 규모의 파동, <b>행성파</b>예요. 파수와 진폭을 바꿔 가며 한파가 어떻게 내려오는지 보세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap studio"><canvas id="d-wave" width="900" height="480"></canvas></div>
+            <div class="canvas-wrap studio" data-kind-pos="br"><canvas id="d-wave" width="900" height="480"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">파수 — 지구를 한 바퀴 도는 물결의 수<span class="val" id="d-wave-k-val">4</span></div>
@@ -498,6 +525,14 @@
           </div>
         </section>
       </div>
+      <details class="model-gap"><summary>🔍 이 모형이 실제와 다른 점</summary>
+      <ul>
+      <li><b>모형에서는</b> 등압선이 곧은 선이거나 완전한 원이고, 바람이 기압 경도력·전향력(경도풍은 원심력까지)이 맞선 평형에 이미 도달해 있습니다. <b>실제로는</b> 기압 배치가 계속 움직이고 바뀌어서 바람이 평형에서 조금씩 벗어나 있고, 이 작은 어긋남이 공기를 모으거나 흩어 날씨를 바꿉니다.</li>
+      <li><b>모형에서는</b> 마찰의 세기를 한 값으로 정해 바람이 등압선을 가로지르는 각과 풍속을 냅니다. <b>실제로는</b> 마찰의 효과가 지표에서 높이 약 1 km(대기 경계층)까지 위로 갈수록 점점 약해져, 높이 올라갈수록 바람이 세지고 방향이 등압선과 나란해집니다.</li>
+      <li><b>모형에서는</b> 편서풍 파동을 위도 45° 둘레에 같은 크기의 물결이 고르게 늘어선 모양(파수·진폭 하나씩)으로 그립니다. <b>실제 제트 기류의</b> 물결은 크기와 모양이 제각각이고 대개 동쪽으로 천천히 움직이며, 한자리에 오래 머무르면 한파나 폭염이 길어집니다.</li>
+      </ul>
+      <p class="gap-src"><b>자료 출처</b> · 그림의 수치(위도, 등압선 간격과 기압 차, 공기 밀도 1.2 kg/m³, 파수·진폭)는 수업용으로 단순하게 정한 값입니다. 바탕 개념: 2022 개정 교육과정 지구시스템과학 교과서(지균풍·경도풍과 행성파).</p>
+      </details>
       <p class="teacher-note">교사용: 주소 끝에 <a href="?open=1">?open=1</a>을 붙이면 교사 미리 보기로 열립니다. · 전자칠판용 <a href="board-04.html">칠판 강의 화면</a> · 빈칸 번호가 같은 <a href="sheet-04.html">개념정리 학습지</a>(<a href="sheet-04.html?key=1">정답</a>) · <a href="form-04.html">형성평가</a>(<a href="form-04.html?key=1">정답</a> · <a href="form-04.html?show=1">칠판에 띄우기</a>)</p>
     </section>
 
@@ -554,34 +589,34 @@
 </div>
 
 <button class="theme-toggle" id="themeToggle">라이트 모드</button>
-<script src="../assets/theme.js?v=c3418585"></script>
+<script src="../assets/theme.js?v=b0f7ed73"></script>
 <script src="../assets/scope.js?v=cecf172a"></script>
 <script src="../assets/kit.js?v=94e3bd47"></script>
 <script src="../assets/story.js?v=cd80882e"></script>
 <script src="../assets/quiz.js?v=d1e13494"></script>
-<script src="../assets/lab.js?v=5ab4e410"></script>
+<script src="../assets/lab.js?v=8e2a04e0"></script>
 <script src="../assets/share-config.js?v=209ba20e"></script>
 <script src="../assets/share.js?v=8ebc37fa"></script>
 <script src="../assets/account.js?v=435378ac"></script>
-<script src="episodes.js"></script>
-<script src="worked.js"></script>
-<script src="handoff.js"></script>
-<script src="quiz-items.js"></script>
+<script src="episodes.js?v=606270ce"></script>
+<script src="worked.js?v=5a25112c"></script>
+<script src="handoff.js?v=6fcdf8c7"></script>
+<script src="quiz-items.js?v=0bb08be7"></script>
 <script src="../assets/review.js?v=c07fe051"></script>
 <script src="../assets/peer.js?v=b6f0b008"></script>
 <script src="../assets/qboard.js?v=b3bb8d32"></script>
-<script src="lab-cases.js"></script>
+<script src="lab-cases.js?v=7ed2e2ce"></script>
 <script src="../assets/inquiry.js?v=405fc23c"></script>
-<script src="inquiry-items.js"></script>
+<script src="inquiry-items.js?v=5b7492b7"></script>
 <script src="../assets/link.js?v=48d3d217"></script>
-<script src="data/power-ungcheon-daily.js"></script>
-<script src="data/power-pressure.js"></script>
-<script src="data/cw155.js"></script>
-<script src="real-cases.js"></script>
+<script src="data/power-ungcheon-daily.js?v=d6f1867f"></script>
+<script src="data/power-pressure.js?v=47f02259"></script>
+<script src="data/cw155.js?v=03f6a79b"></script>
+<script src="real-cases.js?v=035a4970"></script>
 <script src="../assets/precheck.js?v=6e00687c"></script>
-<script src="precheck-items.js"></script>
-<script src="try-items.js"></script>
-<script src="scale-items.js"></script>
+<script src="precheck-items.js?v=d6b1e044"></script>
+<script src="try-items.js?v=d8dbde72"></script>
+<script src="scale-items.js?v=da493857"></script>
 <script src="https://wmfsljy-coder.github.io/science-teacher-hub-qtrqwc/assets/video-links.js" defer></script>
 </body>
 </html>
