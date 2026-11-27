@@ -330,7 +330,7 @@ function boat(ctx, I, x, y, z, col) {
     var ekA = { on: !REDUCE }, ekT = 0;
     /* ── 바다 기둥 블록(유리 수조처럼 속이 비친다): 동쪽 = +x, 북쪽 = −y. 깊이별 층마다 흐름 화살표 ── */
     var LW = 600, RX = 612, ZT = 214, CX = 130, CY = 130;
-    var I = K.iso({ ox: 330, oy: 228, s: 0.72, L: 260, D: 260 });
+    var I = K.iso({ ox: 330, oy: 228, s: 0.72, L: 260, D: 260, cv: canvas });
     function dv(a, len) { var r = a * Math.PI / 180; return { x: len * Math.sin(r), y: -len * Math.cos(r) }; }
     function ring(z, rad, fill, stroke) {
       ctx.beginPath();
@@ -360,7 +360,7 @@ function boat(ctx, I, x, y, z, col) {
           K.glow(ctx, a0.x + (a1.x - a0.x) * u, a0.y + (a1.y - a0.y) * u, 1.6, "rgba(225,245,255,.95)", 3);
         }
         var lp = I.P(0, D, z);
-        K.pill(ctx, i === 0 ? "표층" : (i * 15) + " m", lp.x - 12, lp.y + 4, { a: "right", s: 11, c: i === 0 ? "#bfe6ff" : "#e8ecff", box: [0, LW] });
+        if (I.viewName !== "top" || i === 0) K.pill(ctx, i === 0 ? "표층" : (i * 15) + " m", lp.x - 12, lp.y + 4, { a: "right", s: 11, c: i === 0 ? "#bfe6ff" : "#e8ecff", box: [0, LW] });
       }
       /* 앞면·오른쪽 면·수면(반투명 물) */
       I.face(ctx, "front", function (Lw) { var g = ctx.createLinearGradient(0, ZT, 0, 0); g.addColorStop(0, "rgba(90,180,240,.16)"); g.addColorStop(1, "rgba(10,50,120,.34)"); ctx.fillStyle = g; ctx.fillRect(0, 0, Lw, ZT); });
@@ -392,7 +392,7 @@ function boat(ctx, I, x, y, z, col) {
       var bx = [0, LW];
       K.pill(ctx, "바람", w1.x + (w1.x > w0.x ? 8 : -8), w1.y - 8, { a: w1.x > w0.x ? "left" : "right", s: 12, c: "#ffd36b", box: bx });
       var tp = I.P(CX + tv.x, CY + tv.y, ZT + 2);
-      K.pill(ctx, "에크만 수송", tp.x + (tp.x >= I.P(CX, CY, ZT).x ? 10 : -10), tp.y + 20, { a: tp.x >= I.P(CX, CY, ZT).x ? "left" : "right", s: 12, c: "#ffc078", box: bx });
+      K.pill(ctx, "에크만 수송", tp.x + (tp.x >= I.P(CX, CY, ZT).x ? 10 : -10), tp.y + (I.viewName === "side" ? -16 : 20), { a: tp.x >= I.P(CX, CY, ZT).x ? "left" : "right", s: 12, c: "#ffc078", box: bx });
       var sv = dv(surf(), 96), sp = I.P(CX + sv.x, CY + sv.y, ZT - 10);
       K.pill(ctx, "표층 해수", sp.x + (sp.x >= I.P(CX, CY, ZT).x ? 10 : -10), sp.y + 4, { a: sp.x >= I.P(CX, CY, ZT).x ? "left" : "right", s: 11, c: "#a5d8ff", box: bx });
       K.bigText(ctx, "수송 → " + dirName(tr) + "쪽", 18, 50, 28, ok ? "#8ce99a" : "#ffffff");
@@ -472,7 +472,7 @@ function boat(ctx, I, x, y, z, col) {
     var geoA = { on: !REDUCE }, geoT = 0;
     /* ── 아열대 바다 블록: 앞면이 환류 중심을 지나도록 잘랐다. 동쪽 = +x, 북쪽 = −y ── */
     var LW = 600, RX = 612, ZS = 150, XC = 150, RR = 128;
-    var I = K.iso({ ox: 330, oy: 206, s: 0.66, L: 420, D: 240 });
+    var I = K.iso({ ox: 330, oy: 206, s: 0.66, L: 420, D: 240, cv: canvas });
     var layer = cacheLayer(canvas, W, H);
     function bump() { return dh * 0.42; }
     function surfZ(x, y) { var r2 = ((x - XC) * (x - XC) + (y - I.D) * (y - I.D)) / (RR * RR); return ZS + bump() * Math.exp(-r2); }
@@ -504,7 +504,7 @@ function boat(ctx, I, x, y, z, col) {
       ctx.clearRect(0, 0, W, H);
       var L = I.L, D = I.D, i, k, vv = speed(), ok = vv >= 6.5 && vv <= 7.0, zd = zOfD(d);
       var pe = 1 + d / 10, pc = 1 + (d + dh / 100) / 10;
-      layer(ctx, dh + "|" + d, model);
+      layer(ctx, dh + "|" + d + "|" + I.viewName + I.real, model);
       ctx.save(); ctx.beginPath(); ctx.roundRect(0, 0, LW, H, 14); ctx.clip();
       /* 흐르는 물 입자(시계 방향, 높은 중심을 오른쪽에 둔다) */
       var sp = clamp(vv, 0, 12) * .045;
@@ -537,7 +537,7 @@ function boat(ctx, I, x, y, z, col) {
       }
       I.label(ctx, XC - 40, D - 20, surfZ(XC - 40, D - 20), "환류 중심 (해수면이 높다)", -10, -64, "#e8ecff", bx);
       I.label(ctx, XC, D, zd, pc.toFixed(3) + " 기압", -30, 44, "#ffb3c0", bx);
-      I.label(ctx, L - 34, D, zd, "가장자리 " + pe.toFixed(3) + " 기압", 16, 46, "#ffb3c0", bx);
+      I.label(ctx, L - 34, D, zd, "가장자리 " + pe.toFixed(3) + " 기압", 16, I.viewName === "top" ? -34 : 46, "#ffb3c0", bx);
       var lz = I.P(0, D, zd); K.pill(ctx, "수심 " + d + " m", lz.x - 10, lz.y + 4, { a: "right", s: 11, c: "#ff9aac", box: bx });
       K.bigText(ctx, "지형류 " + vv.toFixed(2) + " cm/s", 18, 50, 27, ok ? "#8ce99a" : "#ffffff");
       K.bigText(ctx, "해수면 높이차 " + dh + " cm", 18, 82, 18, "#ffd35a");
@@ -620,14 +620,16 @@ function boat(ctx, I, x, y, z, col) {
     var bndA = { on: !REDUCE }, bndT = 0;
     /* ── 바다 분지 블록: 동쪽 = +x, 북쪽 = −y(앞면 = 남쪽 끝 단면). 서쪽·동쪽에 대륙 ── */
     var LW = 600, RX = 612, ZS = 60, LAND = 34, KM = 0.14, ZW = 26, ZE = 16;
-    var I = K.iso({ ox: 214, oy: 168, s: 0.6, L: 620, D: 300 });
+    var I = K.iso({ ox: 214, oy: 168, s: 0.6, L: 620, D: 300, cv: canvas });
     var WW = 100 * KM;
+    function bndY() { return I.viewName === "top" ? -30 : 0; }   /* 위에서 볼 때 블록 아래 끝이 잘리지 않게 */
     var layer = cacheLayer(canvas, W, H);
     function wE() { return clamp(wid * KM, 14, I.L - 2 * LAND - 60); }
     function model(c) {
       var L = I.L, D = I.D, we = wE(), fc = I.P(L, D, 0), xe0 = L - LAND - we, i;
       K.studio(c, 0, 0, LW, H, { x: fc.x - 90, y: fc.y - 40, rx: 300, ry: 58 });
       c.save(); c.beginPath(); c.roundRect(0, 0, LW, H, 14); c.clip();
+      if (bndY()) c.translate(0, bndY());
       /* 서쪽 대륙 */
       I.box(c, 0, 0, 0, LAND, D, ZS + 8, "#7fae5a", "#8a6a45", "#6d5236");
       /* 바다 윗면: 북쪽(차갑다) → 남쪽(따뜻하다) */
@@ -670,8 +672,9 @@ function boat(ctx, I, x, y, z, col) {
     function paint() {
       ctx.clearRect(0, 0, W, H);
       var L = I.L, D = I.D, we = wE(), xe0 = L - LAND - we, i, t = et(), diff = Math.abs(t - WT), ok = diff <= 2;
-      layer(ctx, wid + "|" + side, model);
+      layer(ctx, wid + "|" + side + "|" + I.viewName + I.real, model);
       ctx.save(); ctx.beginPath(); ctx.roundRect(0, 0, LW, H, 14); ctx.clip();
+      if (bndY()) ctx.translate(0, bndY());
       /* 물 입자: 서쪽은 빠르게 북으로, 동쪽은 느리게 남으로 */
       var R = K.rng(9);
       for (i = 0; i < 16; i++) {
@@ -684,12 +687,14 @@ function boat(ctx, I, x, y, z, col) {
         K.glow(ctx, q.x, q.y, 1.5, "rgba(255,255,255,.95)", 3);
       }
       ctx.restore();
+      ctx.save(); if (bndY()) ctx.translate(0, bndY());
       var bx = [0, LW], np = I.P(LAND + 46, 18, ZS + 10);
       K.pill(ctx, "북", np.x + 6, np.y - 2, { s: 11, c: "#ffffff", box: bx });
-      I.label(ctx, LAND + WW / 2, D * .62, ZS + 1, "서안 경계류 ↑ 빠름", -16, 70, "#ffc9c9", bx);
+      I.label(ctx, LAND + WW / 2, D * .62, ZS + 1, "서안 경계류 ↑ 빠름", -16, I.viewName === "side" ? -56 : 70, "#ffc9c9", bx);
       I.label(ctx, xe0 + we / 2, D * .35, ZS + 1, "동안 경계류 ↓ 느림", 34, -64, "#d0ebff", bx);
       var fp = I.P(L * .5, D, ZS * .3); K.pill(ctx, "앞면 = 적도 쪽 끝 단면 (빨강 서안 · 하늘 동안)", fp.x - 40, fp.y + 50, { a: "center", s: 10.5, c: "#e8ecff", box: bx });
       var wl = I.P(L * .45, 44, ZS + 1); K.pill(ctx, "편서풍 쪽 →", wl.x + 6, wl.y - 8, { s: 10.5, c: "#ffffff", box: bx });
+      ctx.restore();
       K.bigText(ctx, ok ? "같은 양을 나른다" : "서안 " + WT.toFixed(0) + " Sv · 동안 " + t.toFixed(1) + " Sv", 18, 50, ok ? 28 : 24, ok ? "#8ce99a" : "#ffffff");
       K.bigText(ctx, side === "west" ? "서안: 좁고 빠르고 깊다" : "동안: 넓고 느리고 얕다", 18, 82, 18, "#ffd35a");
       K.warn(ctx, LW - 14, 30, "⚠ 해류 폭·깊이는 과장", "right");
@@ -1824,7 +1829,7 @@ function boat(ctx, I, x, y, z, col) {
 
     /* ── 모형: x = 회동리(왼쪽 위) → 모도(오른쪽 아래), y = 깊이 방향, 바닷길 등성이는 앞면(y = D)을 따라 놓인다 ── */
     var DH = 425;                                       /* 모형 칸 높이(아래는 조위 곡선) */
-    var I = K.iso({ ox: 352, oy: 172, s: 0.62, L: 600, D: 200 });
+    var I = K.iso({ ox: 352, oy: 172, s: 0.62, L: 600, D: 200, cv: canvas });
     var L = I.L, D = I.D, ZM = 10;                      /* 1 m = 10 그림 단위(높이 과장) */
     function zm(m) { return (m + 9) * ZM; }             /* 해저 −9 m 가 블록 바닥(z = 0) */
     var XM = 330;                                       /* 등성이에서 가장 낮은 곳 */
@@ -1857,6 +1862,7 @@ function boat(ctx, I, x, y, z, col) {
       var wz = zm(lv);
       K.studio(ctx, 0, 0, W, DH, { x: I.P(L, D, 0).x - 140, y: I.P(L, D, 0).y - 30, rx: 330, ry: 58 });
       ctx.save(); ctx.beginPath(); ctx.roundRect(0, 0, W, DH, 14); ctx.clip();
+      if (I.viewName === "top") ctx.translate(0, -34);   /* 위에서 볼 때 블록 아래 끝이 잘리지 않게 */
       /* 지형 + 칸마다 물 덮기 */
       I.field(ctx, zOf, landCol, 60, 20, function (c, x0, y0, x1, y1, zMax, zMin) {
         if (wz > zMin + 0.2) {
@@ -1906,15 +1912,17 @@ function boat(ctx, I, x, y, z, col) {
       ctx.restore();
       /* 이름표 */
       var box = [0, W];
+      ctx.save(); if (I.viewName === "top") ctx.translate(0, -34);
       I.label(ctx, 40, 60, zOf(40, 60) + 14, "회동리 (진도)", 70, -34, "#f4f0e6", box);
       I.label(ctx, L - 20, 120, zOf(L - 20, 120) + 6, "모도", 40, -24, "#f4f0e6", box);
-      I.label(ctx, XM, D, zm(crest(XM)), "등성이에서 가장 낮은 곳 −1.7 m", 30, 52, "#ff9aac", box);
+      I.label(ctx, XM, D, zm(crest(XM)), "등성이에서 가장 낮은 곳 −1.7 m", I.viewName === "top" ? -30 : 30, I.viewName === "top" ? 40 : 52, "#ff9aac", box);
       if (!open) {
         var dep = lv - FLOOR;
         I.label(ctx, XM + 40, D - 20, wz, "등성이 위 물 깊이 " + dep.toFixed(2) + " m", 60, -40, "#bfe6ff", box);
       }
       var lp = I.P(150, D, zm(0)); K.pill(ctx, "평균 해면 0 m", lp.x + 6, lp.y - 6, { s: 11, c: "#ffffff", box: box });
       var lp2 = I.P(150, D, zm(FLOOR)); K.pill(ctx, "−1.7 m", lp2.x + 6, lp2.y + 18, { s: 11, c: "#ff9aac", box: box });
+      ctx.restore();
       /* 큰 글자 */
       if (ST[place].R / 2 < -FLOOR) { K.bigText(ctx, ST[place].n + "의 바다였다면", 22, 52, 27, "#ffffff"); K.bigText(ctx, "길은 끝내 열리지 않는다", 22, 88, 20, "#ffd35a"); }
       else if (open) { K.bigText(ctx, "바닷길이 열렸다", 22, 52, 30, "#ffd35a"); K.bigText(ctx, ST[place].n + " " + hm(tm) + " · 조위 " + lv.toFixed(2) + " m", 22, 88, 19, "#ffffff"); }
@@ -2042,6 +2050,7 @@ window.sthWork({
     { key: "r4", label: "④ 바다가 갈라지는 날" },
     { key: "rQuiz", label: "수준별 문제" },
     { key: "rLab", label: "응용 실험실" },
+    { key: "rObs", label: "실제 자료 탭" },
     { key: "rInq", label: "교과서 실험" },
     { key: "rReal", label: "실제 자료" }
   ],
@@ -2061,6 +2070,7 @@ window.sthShare({
     { key: "r4", label: "④ 바다가 갈라지는 날" },
     { key: "rQuiz", label: "수준별 문제" },
     { key: "rLab", label: "응용 실험실" },
+    { key: "rObs", label: "실제 자료 탭" },
     { key: "rInq", label: "교과서 실험" },
     { key: "rReal", label: "실제 자료" }
   ],

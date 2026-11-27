@@ -789,7 +789,7 @@ function flow(ctx, a, b, val, col, lab, side, box) {
     var foA = { on: !REDUCE }, foT = 0;
     /* ── 아이소메트릭 블록 모형: x = 동해·영동(왼쪽 위) → 영서(오른쪽 아래), y = 산맥이 뻗은 방향.
           공기 덩어리는 앞면 가까이(y = YP)를 따라 산을 넘는다. 높이는 크게 과장(1,500 m ≈ 165 그림 단위). ── */
-    var I = K.iso({ ox: 290, oy: 182, s: 0.8, L: 640, D: 180 });
+    var I = K.iso({ ox: 290, oy: 182, s: 0.8, L: 640, D: 180, cv: canvas });
     var BL = I.L, BD = I.D, ZB = 32, ZM = 0.11, XM = 330, YP = BD - 30;
     function zm(mm) { return ZB + mm * ZM; }
     function prof(x) {                       /* 공기가 지나는 길의 땅 높이(m): 동쪽은 가파르고 서쪽은 완만한 산맥 */
@@ -850,6 +850,7 @@ function flow(ctx, a, b, val, col, lab, side, box) {
       var fl = I.P(BL, BD, 0);
       K.studio(ctx, 0, 0, W, H, { x: fl.x - 150, y: fl.y - 24, rx: 340, ry: 42 });
       ctx.save(); ctx.beginPath(); ctx.roundRect(0, 0, W, H, 14); ctx.clip();
+      if (I.viewName === "top") ctx.translate(14, -36);   /* 위에서 볼 때 블록 아래 끝·제목과 겹치지 않게 */
       /* 지형 + 바다 */
       I.field(ctx, zOf, landCol(dry), 64, 18, function (c, x0, y0, x1, y1, zMax, zMin) {
         if (wz > zMin + 0.2) {
@@ -890,7 +891,7 @@ function flow(ctx, a, b, val, col, lab, side, box) {
         if (hh > 0) airLine(zm(hh), 0, BL, "rgba(30,50,90,.32)", 1.2, [5, 5]);
         if (m.cloud > 0 && Math.abs(hh - m.lcl) < 220) return;           /* 응결 고도 이름표 자리 */
         var p = I.P(0, BD, zm(hh));
-        K.pill(ctx, hh === 0 ? "해수면 0 m" : hh.toLocaleString() + " m", p.x - 8, p.y + 4, { a: "right", s: 10.5, c: "#e8ecff", box: box });
+        if (I.viewName !== "top") K.pill(ctx, hh === 0 ? "해수면 0 m" : hh.toLocaleString() + " m", p.x - 8, p.y + 4, { a: "right", s: 10.5, c: "#e8ecff", box: box });
       });
       /* 비와 구름 (바람받이) */
       var x0c = 0;
@@ -946,13 +947,15 @@ function flow(ctx, a, b, val, col, lab, side, box) {
       K.planet(ctx, pp.x, pp.y, 13, heatCol((tp + 10) / 45), "#3a2a4a");
       ctx.restore();
       /* 이름표 */
+      ctx.save(); if (I.viewName === "top") ctx.translate(14, -36);
       K.pill(ctx, tp.toFixed(1) + " ℃", pp.x, pp.y - 18, { a: "center", s: 11, c: KC.yellow, box: box });
-      var wp = I.P(-30, 40, wz + 22); K.pill(ctx, "동해의 축축한 동풍", wp.x, wp.y - 12, { a: "center", s: 11.5, c: "#bfe6ff", box: box });
+      var wp = I.P(-30, 40, wz + 22), wvn = I.viewName; K.pill(ctx, "동해의 축축한 동풍", wp.x + (wvn === "side" ? 24 : (wvn === "top" ? 80 : 0)), wp.y - 12 + (wvn === "side" ? -24 : (wvn === "top" ? 40 : 0)), { a: wvn === "side" ? "left" : "center", s: 11.5, c: "#bfe6ff", box: box });
       I.label(ctx, 80, BD - 4, zOf(80, BD - 4), "영동 기슭 " + T0 + " ℃ · 이슬점 " + m.td + " ℃", -30, 44, "#bfe6ff", box);
       I.label(ctx, XM, 4, zOf(XM, 4) + 14, "태백산맥 산마루 1,500 m · " + m.top.toFixed(1) + " ℃", 70, -64, "#c9f5c0", box);
       I.label(ctx, 620, BD - 10, zOf(620, BD - 10), "영서 기슭 " + m.lee.toFixed(1) + " ℃ (" + (m.gain >= 0 ? "+" : "") + m.gain.toFixed(1) + " ℃)", 40, -60, m.gain >= 5 ? "#ff9aac" : "#e8ecff", box);
-      if (m.cloud > 0) { var lp = I.P(0, BD, zm(m.lcl)); K.pill(ctx, "응결 고도 " + Math.round(m.lcl).toLocaleString() + " m", lp.x - 8, lp.y + 4, { a: "right", s: 11, c: "#ff9aac", box: box }); }
+      if (m.cloud > 0) { var lp = I.P(0, BD, zm(m.lcl)); if (I.viewName !== "top") K.pill(ctx, "응결 고도 " + Math.round(m.lcl).toLocaleString() + " m", lp.x - 8, lp.y + 4, { a: "right", s: 11, c: "#ff9aac", box: box }); }
       else { var np = I.P(XM, 60, zm(MH) + 40); K.pill(ctx, "구름 없음 — 응결 고도가 산마루보다 높음", np.x, np.y, { a: "center", s: 11.5, c: KC.ink, box: box }); }
+      ctx.restore();
       /* 읽음판 */
       K.t(ctx, "오를 때 — 응결 고도까지 1.0 ℃/100 m, 구름 속은 0.5 ℃/100 m", W - 18, 26, { s: 11.5, w: "800", a: "right", c: "#1d4f8f" });
       K.t(ctx, "내려올 때 — 구름이 없어 줄곧 1.0 ℃/100 m", W - 18, 46, { s: 11.5, w: "800", a: "right", c: "#b2402a" });
@@ -1742,7 +1745,7 @@ function flow(ctx, a, b, val, col, lab, side, box) {
     var geA = { on: !REDUCE }, geT = 0;
     /* ── 상공(약 5 km) 일기도 판: 동쪽 = +x, 북쪽 = −y(뒤쪽). 북쪽이 저기압 ── */
     var LW = 600, RX = 612, ZP = 12;
-    var I = K.iso({ ox: 236, oy: 168, s: 0.6, L: 560, D: 300 });
+    var I = K.iso({ ox: 236, oy: 168, s: 0.6, L: 560, D: 300, cv: canvas });
     function plate() {
       var L = I.L, D = I.D;
       ["front", "right"].forEach(function (side) { I.face(ctx, side, function (Lw) { var g = ctx.createLinearGradient(0, 0, 0, ZP); g.addColorStop(0, "#c5d3e6"); g.addColorStop(1, "#eef3fa"); ctx.fillStyle = g; ctx.fillRect(0, 0, Lw, ZP); }); });
@@ -1756,6 +1759,7 @@ function flow(ctx, a, b, val, col, lab, side, box) {
       ctx.clearRect(0, 0, W, H);
       var fc = I.P(L, D, 0);
       studioOpen(ctx, LW, H, { x: fc.x - 120, y: fc.y + 4, rx: 300, ry: 44 });
+      if (I.viewName === "top") ctx.translate(0, -24);   /* 위에서 볼 때 판 아래 끝이 잘리지 않게 */
       plate();
       var yc = D / 2, sp = 26 + (dkm - 100) / 700 * 34;
       onPlane(ctx, I, ZP + .2, function () {
@@ -1788,7 +1792,8 @@ function flow(ctx, a, b, val, col, lab, side, box) {
       var cc = I.P(CX, yc, ZP + 4); K.planet(ctx, cc.x, cc.y, 6, "#ffffff", "#5c7086");
       ctx.restore();
       var BX = [0, LW];
-      for (i = -2; i <= 2; i += 2) { var lp = I.P(L - 20, yc + i * sp, ZP); K.pill(ctx, (1012 + i * 4) + " hPa", lp.x + 8, lp.y + 4, { s: 10.5, c: "#e8ecff", box: BX }); }
+      ctx.save(); if (I.viewName === "top") ctx.translate(0, -24);
+      for (i = -2; i <= 2; i += 2) { if (I.viewName === "side" && !i) continue; var lp = I.P(L - 20, yc + i * sp, ZP); K.pill(ctx, (1012 + i * 4) + " hPa", lp.x + 8, lp.y + 4 + (I.viewName === "side" ? i * 7 : 0), { s: 10.5, c: "#e8ecff", box: BX }); }
       var t1 = I.P(CX, yc - ca, ZP + 4), t2 = I.P(CX, yc + ca, ZP + 4), t3 = I.P(CX + 120, yc, ZP + 4);
       K.pill(ctx, "기압 경도력", t1.x + 10, t1.y - 2, { s: 11.5, c: "#ffc9c9", box: BX });
       K.pill(ctx, "전향력", t2.x - 10, t2.y + 16, { a: "right", s: 11.5, c: "#d0bfff", box: BX });
@@ -1796,6 +1801,7 @@ function flow(ctx, a, b, val, col, lab, side, box) {
       var nb = I.P(20, 0, ZP), sb = I.P(20, D, ZP);
       K.pill(ctx, "북쪽 · 기압 낮음", nb.x + 4, nb.y - 10, { s: 11, c: "#a5d8ff", box: BX });
       K.pill(ctx, "남쪽 · 기압 높음", sb.x - 4, sb.y + 22, { a: "center", s: 11, c: "#ffc9c9", box: BX });
+      ctx.restore();
       if (frac > 0) K.pill(ctx, "정지 상태에서 놓은 공기의 자취", 18, H - 16, { s: 11, c: "#ffd8a8", box: BX });
       K.bigText(ctx, "지균풍 " + V.toFixed(1) + " m/s", 18, 48, 28, V >= 30 || V <= 5 ? "#8ce99a" : "#ffffff");
       K.bigText(ctx, "위도 " + lat + "° · 등압선 간격 " + dkm.toLocaleString() + " km", 18, 80, 17, "#ffd35a");
@@ -1999,13 +2005,14 @@ function flow(ctx, a, b, val, col, lab, side, box) {
     var sfA = { on: !REDUCE }, sfT = 0;
     /* ── 땅 블록: 마찰이 클수록 바다 → 논밭 → 도시·숲으로 거칠어진다. 동쪽 = +x, 북쪽 = −y(저기압) ── */
     var LW = 600, RX = 612, ZG = 22;
-    var I = K.iso({ ox: 236, oy: 172, s: 0.6, L: 540, D: 330 });
+    var I = K.iso({ ox: 236, oy: 172, s: 0.6, L: 540, D: 330, cv: canvas });
     var layer = cacheLayer(canvas, W, H);
     function terr() { return k6 === 0 ? 0 : (k6 < 40 ? 1 : (k6 < 90 ? 2 : 3)); }
     function model(c) {
       var L = I.L, D = I.D, tr = terr(), fc = I.P(L, D, 0), i;
       K.studio(c, 0, 0, LW, H, { x: fc.x - 110, y: fc.y - 20, rx: 300, ry: 48 });
       c.save(); c.beginPath(); c.roundRect(0, 0, LW, H, 14); c.clip();
+      if (I.viewName === "top") c.translate(0, -30);   /* 위에서 볼 때 블록 아래 끝이 잘리지 않게 */
       var top = tr <= 1 ? "#3d8fd6" : (tr === 2 ? "#8fbf5a" : "#9aa3ad");
       soilBlock(c, I, ZG, top, 15);
       if (tr <= 1) {
@@ -2026,8 +2033,9 @@ function flow(ctx, a, b, val, col, lab, side, box) {
     function paint() {
       var c = calc(), i, L = I.L, D = I.D, ar = c.ang * Math.PI / 180;
       ctx.clearRect(0, 0, W, H);
-      layer(ctx, String(terr()), model);
+      layer(ctx, String(terr()) + "|" + I.viewName + I.real, model);
       ctx.save(); ctx.beginPath(); ctx.roundRect(0, 0, LW, H, 14); ctx.clip();
+      if (I.viewName === "top") ctx.translate(0, -30);
       var z = ZG + (terr() === 3 ? 66 : 4), yc = D / 2, CX = L * .5;
       onPlane(ctx, I, z, function () {
         for (i = -2; i <= 2; i++) { ctx.strokeStyle = "rgba(20,40,90,.8)"; ctx.lineWidth = 2.2; ctx.setLineDash(terr() === 3 ? [10, 6] : []); ctx.beginPath(); ctx.moveTo(14, yc + i * 62); ctx.lineTo(L - 14, yc + i * 62); ctx.stroke(); }
@@ -2049,13 +2057,15 @@ function flow(ctx, a, b, val, col, lab, side, box) {
       var cp = I.P(CX, yc, z + 3); K.planet(ctx, cp.x, cp.y, 5, "#ffffff", "#5c7086");
       ctx.restore();
       var BX = [0, LW];
+      ctx.save(); if (I.viewName === "top") ctx.translate(0, -30);
       K.pill(ctx, "지상풍", wv.x + 8, wv.y + 16, { s: 12.5, c: "#b2f2bb", box: BX });
       K.pill(ctx, "기압 경도력", pg.x + 10, pg.y, { s: 11, c: "#ffc9c9", box: BX });
       K.pill(ctx, "전향력", co.x - 8, co.y + 18, { a: "right", s: 11, c: "#d0bfff", box: BX });
       K.pill(ctx, "마찰력", fr.x - 8, fr.y - 6, { a: "right", s: 11, c: "#ffd8a8", box: BX });
       var nb = I.P(20, 0, ZG), sb = I.P(20, D, ZG);
-      K.pill(ctx, "북쪽 · 저기압", nb.x + 4, nb.y - 10, { s: 11, c: "#a5d8ff", box: BX });
+      K.pill(ctx, "북쪽 · 저기압", nb.x + 4, nb.y - (I.viewName === "side" ? 22 : 10), { s: 11, c: "#a5d8ff", box: BX });
       K.pill(ctx, "남쪽 · 고기압", sb.x, sb.y + 24, { a: "center", s: 11, c: "#ffc9c9", box: BX });
+      ctx.restore();
       var tname = ["마찰 없음 — 상공의 지균풍", "바다 위처럼 매끄러운 지표", "평지·논밭 정도의 지표", "도시·산지처럼 거친 지표"][terr()];
       K.bigText(ctx, "등압선과 " + c.ang.toFixed(1) + "°", 18, 48, 28, c.ang <= 6 || c.ang >= 30 ? "#8ce99a" : "#ffffff");
       K.bigText(ctx, tname, 18, 80, 17, "#ffd35a");
@@ -2321,6 +2331,7 @@ window.sthWork({
     { key: "r4", label: "④ 제트 기류를 읽는 사람" },
     { key: "rQuiz", label: "수준별 문제" },
     { key: "rLab", label: "응용 실험실" },
+    { key: "rObs", label: "실제 자료 탭" },
     { key: "rInq", label: "교과서 실험" },
     { key: "rReal", label: "실제 자료" }
   ],
@@ -2340,6 +2351,7 @@ window.sthShare({
     { key: "r4", label: "④ 제트 기류를 읽는 사람" },
     { key: "rQuiz", label: "수준별 문제" },
     { key: "rLab", label: "응용 실험실" },
+    { key: "rObs", label: "실제 자료 탭" },
     { key: "rInq", label: "교과서 실험" },
     { key: "rReal", label: "실제 자료" }
   ],
