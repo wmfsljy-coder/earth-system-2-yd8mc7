@@ -110,6 +110,9 @@
   var bAll = btn("한 번에", "이 장면 빈칸 모두 열기", revealAll);
   var bScript = STUDENT ? null : btn("대본", "선생님 대본 (T)", function () { toggleScript(); });
   btn("⛶", "전체 화면 (F)", toggleFull);
+  /* 🧪 시연: 같은 소단원 이야기를 잠금 없는 시연 모드로 연다(교사 화면에서만, 2026-11-27) */
+  var secM = /board-(\d+)\.html/.exec(location.pathname);
+  if (!STUDENT && secM) btn("🧪 시연", "이 소단원 시뮬레이션을 시연 모드로 열기 (새 탭)", function () { window.open("./?open=1&mode=demo&sec=" + secM[1], "_blank", "noopener"); });
   document.body.appendChild(bar);
   function updateBar() { count.textContent = (cur + 1) + " / " + N; bAll.disabled = step >= maxes[cur]; bAll.style.opacity = bAll.disabled ? .4 : 1; if (bScript) bScript.classList.toggle("on", scriptOpen); }
   var hideT = null;

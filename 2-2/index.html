@@ -57,6 +57,7 @@
 
         <section class="scene" data-title="대기는 아무 빛이나 막지 않는다 — 선택적 흡수">
           <div class="story"><div class="who">👩‍🚀</div><div class="say"><span class="name">한별</span>“먼저 이상한 점부터요. 대기가 빛을 막는다면 햇빛도 못 들어와야 하잖아요? 그런데 낮은 환합니다. 대기는 <b>파장에 따라 아주 다르게</b> 행동해요. 파장을 0.1 µm부터 40 µm까지 훑으면서, 어떤 빛이 막히고 어떤 빛이 통과하는지 직접 확인해 보세요.”</div></div>
+          <div class="pv" data-key="p1-2" data-form="1"><p class="pv-q">파장을 자외선 → 가시광선 → 적외선 순으로 훑을 때, 대기를 가장 잘 통과해 지표까지 오는 빛은 어느 것일까요?</p><button class="pv-o" data-why="에너지가 큰 빛이라 뚫고 들어올 것 같지만, 성층권의 오존과 산소가 파장이 짧은 자외선을 거의 다 흡수합니다.">자외선</button><button class="pv-o" data-ok>가시광선</button><button class="pv-o" data-why="적외선을 열과 같은 것으로 여겨 잘 통과한다고 생각하기 쉽지만, 수증기와 이산화 탄소가 적외선 대부분을 흡수합니다. 8~12 µm의 ‘대기의 창’만 예외입니다.">적외선</button><p class="pv-a">대기는 빛을 파장에 따라 골라 흡수합니다(<b>선택적 흡수</b>). 자외선은 오존이, 적외선은 수증기·이산화 탄소가 대부분 흡수하고, <b>가시광선</b>과 <b>대기의 창</b>(8~12 µm)은 잘 통과합니다.</p></div>
           <div class="stage-card">
             <div class="canvas-wrap studio" data-kind-pos="br"><canvas id="a-sp" width="900" height="468"></canvas></div>
             <div class="controls">
@@ -77,6 +78,7 @@
 
         <section class="scene" data-title="대기가 없는 행성의 온도 — 복사 평형 온도">
           <div class="story"><div class="who">👩‍🚀</div><div class="say"><span class="name">한별</span>“이제 계산입니다. 어떤 천체든 받는 만큼 내보내면 온도가 일정해져요. 이 온도를 <b><span data-view="law:복사 평형">복사 평형</span> 온도</b>라고 합니다. 식은 T = [S(1−A) / 4σ]<sup>1/4</sup>, σ = 5.67×10⁻⁸ W/m²K⁴예요. 태양 상수와 반사율을 바꿔 가며 행성을 만들어 보세요.”</div></div>
+          <div class="pv" data-key="p1-3" data-form="4"><p class="pv-q">태양 상수는 그대로 두고 행성의 반사율만 크게 하면, 복사 평형 온도는 어떻게 될까요?</p><button class="pv-o" data-why="밝게 빛나는 행성이 뜨거울 것 같지만, 반사율이 크다는 것은 들어온 햇빛을 더 많이 되돌려 보낸다는 뜻입니다. 흡수하는 에너지가 줄어듭니다.">높아진다</button><button class="pv-o" data-why="온도가 태양까지의 거리로만 정해진다고 생각하기 쉽지만, 같은 햇빛을 받아도 흡수하는 몫 S(1−A)가 줄면 평형을 이루는 온도도 낮아집니다.">변하지 않는다</button><button class="pv-o" data-ok>낮아진다</button><p class="pv-a"><b>복사 평형 온도</b>는 흡수한 만큼 내보낼 때의 온도 T = [S(1−A) / 4σ]<sup>1/4</sup>입니다. <b>반사율</b> A가 커지면 흡수하는 에너지가 줄어 온도가 낮아집니다.</p></div>
           <div class="stage-card">
             <div class="canvas-wrap studio" data-kind="model calc" data-kind-pos="br"><canvas id="a-eq" width="900" height="400"></canvas></div>
             <div class="controls">
@@ -177,6 +179,7 @@
         <section class="scene" data-title="공기 한 덩이를 따라 산을 넘다">
           <div class="story"><div class="who">👩‍🔬</div><div class="say"><span class="name">기상 조사관 유나</span>“공기 덩어리는 오르면 부피가 커지면서 스스로 식습니다. 밖과 열을 주고받지 않는 <b><span data-view="law:단열과정">단열 변화</span></b>죠. 그러다 기온이 이슬점까지 내려가면 수증기가 응결해 구름이 생기고, 그 뒤로는 응결할 때 나오는 숨은열 때문에 <b>천천히</b> 식습니다. 산기슭의 기온과 이슬점을 바꿔 가며 직접 넘겨 보세요.”</div></div>
           <figure class="hero-art"><img src="img/foehn.webp" alt="바닷가 마을과 산맥, 산 너머 들판을 블록처럼 잘라 낸 모형. 바다 쪽 산비탈은 구름에 덮여 비가 내리고, 산 너머 들판은 맑고 누렇게 말라 있으며 농부가 마른 논을 바라본다. 앞면 단면에 땅속 지층이 보인다." width="900" height="900" loading="lazy"><figcaption><b>비는 산이 다 가져가고, 넘어온 바람은 뜨겁습니다</b> 동해의 축축한 바람이 태백산맥을 타고 오르면 공기가 식어 구름이 되고, 영동 쪽 비탈에 비를 뿌립니다. 수증기를 잃고 산을 넘은 공기는 내려오면서 100 m마다 약 1 ℃씩 데워집니다. 그래서 같은 바람인데도 영서에는 덥고 메마른 높새바람이 붑니다. <span class="art-note">⚠ 산의 높이를 크게 과장했고, 산맥의 폭과 마을 크기도 실제 비율이 아닙니다.</span></figcaption></figure>
+          <div class="pv" data-key="p2-2" data-form="8"><p class="pv-q">산기슭 공기가 이미 포화 상태(기온 = 이슬점)일 때 산을 넘어 반대편 산기슭에 내려오면, 기온은 처음과 비교해 어떻게 될까요?</p><button class="pv-o" data-ok>더 높아진다</button><button class="pv-o" data-why="오를 때 식은 만큼 내려올 때 데워지니 같을 것 같지만, 구름이 생기는 구간에서는 숨은열이 나와 100 m에 약 0.5 ℃만 식습니다. 내려올 때는 구름 없이 100 m에 약 1 ℃씩 데워지므로 더 따뜻해집니다.">처음과 같다</button><button class="pv-o" data-why="높은 산의 찬 공기를 데려올 것 같지만, 산을 내려오는 공기는 압축되면서 단열적으로 데워집니다.">더 낮아진다</button><p class="pv-a">구름 구간에서는 <b>숨은열</b> 때문에 <b>습윤 단열 감률</b>(약 0.5 ℃/100 m)로 천천히 식고, 비를 뿌린 뒤 내려올 때는 <b>건조 단열 감률</b>(1 ℃/100 m)로 데워져 산 너머가 더 덥고 메마릅니다(<b>높새바람</b>).</p></div>
           <div class="stage-card">
             <div class="canvas-wrap" style="background:#e4eaf1" data-kind="model calc" data-kind-pos="bl"><canvas id="b-foehn" width="900" height="526"></canvas></div>
             <div class="controls">
@@ -201,6 +204,7 @@
 
         <section class="scene" data-title="계속 올라갈까, 되돌아올까 — 대기 안정도">
           <div class="story"><div class="who">👩‍🔬</div><div class="say"><span class="name">유나</span>“공기 덩어리가 계속 올라갈지는 <b>주변 대기의 기온이 높이에 따라 얼마나 빨리 떨어지는가</b>가 정합니다. 주변이 덩어리보다 더 빨리 식으면 덩어리는 늘 주변보다 따뜻해서 계속 올라가요. 주변 대기의 기온 감률을 바꿔 가며 단열선도를 읽어 보세요.”</div></div>
+          <div class="pv" data-key="p2-3" data-form="4"><p class="pv-q">주변 대기의 기온 감률을 크게 하면(높이 올라갈수록 기온이 더 빨리 떨어지면), 밀어 올린 공기 덩어리는 어떻게 될까요?</p><button class="pv-o" data-why="위쪽 공기가 차갑다는 것만 보면 그렇게 생각하기 쉽지만, 비교할 것은 덩어리와 주변의 기온입니다. 덩어리가 단열로 식는 것보다 주변이 더 빨리 식으면, 덩어리는 늘 주변보다 따뜻하고 가벼워 계속 올라갑니다.">더 잘 가라앉는다(위가 차가우니 무거워진다)</button><button class="pv-o" data-ok>계속 올라가기 쉬워진다(불안정해진다)</button><button class="pv-o" data-why="공기는 늘 제자리로 돌아온다고 생각하기 쉽지만, 대기가 안정한지는 주변 기온 감률과 덩어리의 단열 감률을 비교해 정해집니다.">기온 감률과 상관없이 늘 제자리로 돌아온다</button><p class="pv-a">주변 기온 감률이 건조 단열 감률(1 ℃/100 m)보다 크면 <b>절대 불안정</b>, 습윤 단열 감률(약 0.5 ℃/100 m)보다 작으면 <b>절대 안정</b>, 그 사이면 포화되었을 때만 불안정한 <b>조건부 불안정</b>입니다.</p></div>
           <div class="stage-card">
             <div class="canvas-wrap studio" data-kind-pos="br"><canvas id="b-stab" width="900" height="516"></canvas></div>
             <div class="controls">
@@ -294,6 +298,7 @@
 
         <section class="scene" data-title="위로 갈수록 가벼워진다 — 기압의 연직 분포">
           <div class="story"><div class="who">🧑‍🏫</div><div class="say"><span class="name">도윤</span>“어떤 높이의 기압은 <b>그 위에 쌓인 공기 기둥의 무게</b>와 같습니다. 위로 올라갈수록 머리 위에 남은 공기가 줄어드니 기압이 낮아지죠. 그런데 줄어드는 모양이 직선이 아닙니다. 고도 슬라이더를 움직여 확인해 보세요.”</div></div>
+          <div class="pv" data-key="p3-2" data-form="4"><p class="pv-q">고도를 0 → 5 km, 5 → 10 km로 똑같이 5 km씩 올라갈 때, 기압이 줄어드는 양은 어떻게 다를까요?</p><button class="pv-o" data-why="높이에 따라 일정하게(직선으로) 줄어든다고 생각하기 쉽지만, 공기는 눌려서 아래쪽에 많이 몰려 있습니다. 그래서 아래쪽에서 기압이 훨씬 빨리 줄어듭니다.">두 구간 모두 같다</button><button class="pv-o" data-why="위로 갈수록 공기가 희박해지니 기압도 더 급하게 떨어질 것 같지만, 위쪽에는 남은 공기가 적어 줄어들 몫도 적습니다.">위쪽 구간(5 → 10 km)에서 더 많이 준다</button><button class="pv-o" data-ok>아래쪽 구간(0 → 5 km)에서 더 많이 준다</button><p class="pv-a">어떤 높이의 <b>기압</b>은 그 위에 쌓인 공기 기둥의 무게입니다. 공기가 아래쪽에 몰려 있어 기압은 높이에 따라 직선이 아니라 <b>지수 함수</b>처럼 아래에서 빨리, 위로 갈수록 천천히 줄어듭니다.</p></div>
           <div class="stage-card">
             <div class="canvas-wrap studio" data-kind="model calc" data-kind-pos="br"><canvas id="c-prof" width="900" height="516"></canvas></div>
             <div class="controls">
@@ -314,6 +319,7 @@
 
         <section class="scene" data-title="공기 저울 — 정역학적 균형">
           <div class="story"><div class="who">🧑‍🏫</div><div class="say"><span class="name">도윤</span>“두께 <b>100 m</b>, 밑면적 <b>1 m²</b>짜리 공기 층을 하나 떼어 저울에 올려 봅시다. 아래에서 받치는 기압이 위에서 누르는 기압보다 큰 만큼 <b>위로 미는 힘</b>이 생기고, 공기 자신의 <b>무게</b>는 아래로 당깁니다. 두 힘이 같으면 층은 가만히 있어요. 아래 면의 기압과 공기의 기온을 바꿔 가며 저울을 맞춰 보세요.”</div></div>
+          <div class="pv" data-key="p3-3" data-form="3"><p class="pv-q">아래 면의 기압은 그대로 두고 공기 층의 기온만 높이면, 공기 저울은 어떻게 될까요?</p><button class="pv-o" data-ok>공기가 가벼워져 저울이 위쪽으로 기운다(떠오르려 한다)</button><button class="pv-o" data-why="같은 부피 속 공기의 양이 늘 같다고 생각하기 쉽지만, 기온이 높으면 밀도가 작아져 같은 부피의 공기가 더 가벼워집니다.">변하지 않는다(기온은 공기의 무게와 상관없다)</button><button class="pv-o" data-why="데워지면 분자가 활발해져 무거워질 것 같지만, 분자의 질량은 그대로이고 오히려 퍼져서 같은 부피 속 분자 수가 줄어듭니다.">공기가 무거워져 아래로 가라앉는다</button><p class="pv-a">위로 미는 <b>연직 기압 경도력</b>과 공기의 <b>무게(중력)</b>가 같으면 <b>정역학적 균형</b>입니다. 기온이 높아지면 밀도가 작아져 무게가 줄고, 남는 힘이 위쪽을 향해 공기가 올라갑니다.</p></div>
           <div class="stage-card">
             <div class="canvas-wrap studio" data-kind-pos="br"><canvas id="c-hydro" width="900" height="440"></canvas></div>
             <div class="controls">
@@ -412,6 +418,7 @@
 
         <section class="scene" data-title="힘 두 개로 부는 바람 — 지균풍">
           <div class="story"><div class="who">🧑‍✈️</div><div class="say"><span class="name">세영</span>“마찰이 거의 없는 상공에서는 힘이 둘뿐이에요. 등압선에 수직으로 밀어 주는 <b>기압 경도력</b>, 그리고 움직이기 시작한 공기를 북반구에서 오른쪽으로 휘게 하는 <b><span data-view="law:코리올리 효과">전향력</span></b>. 두 힘이 크기가 같고 방향이 반대가 되면 바람은 등압선과 나란해집니다. 등압선 간격과 위도를 바꿔 보세요.”</div></div>
+          <div class="pv" data-key="p4-2" data-form="4"><p class="pv-q">기압 차와 등압선 간격은 그대로 두고 위도만 낮추면(적도 쪽으로 가면), 지균풍은 어떻게 될까요?</p><button class="pv-o" data-ok>강해진다</button><button class="pv-o" data-why="전향력이 약하다는 데서 바람도 약할 것이라 생각하기 쉽지만, 지균풍에서는 전향력이 기압 경도력과 같아야 합니다. 같은 속도에서 전향력이 약한 저위도에서는 바람이 더 빨라야 두 힘이 맞섭니다.">약해진다(적도 쪽은 전향력이 약하니 바람도 약하다)</button><button class="pv-o" data-why="기압 경도력이 같아도, 이와 맞서는 전향력의 크기가 위도에 따라 달라서 평형을 이루는 풍속이 달라집니다.">변하지 않는다(기압 차가 같으니 바람도 같다)</button><p class="pv-a"><b>지균풍</b>은 <b>기압 경도력</b>과 <b>전향력</b>(2Ω sinφ × 풍속)이 평형을 이룬 바람입니다. 위도가 낮을수록 sinφ가 작아, 같은 기압 차에서도 바람이 강해야 평형이 됩니다.</p></div>
           <div class="stage-card">
             <div class="canvas-wrap studio" data-kind="model calc" data-kind-pos="br"><canvas id="d-geo" width="900" height="450"></canvas></div>
             <div class="controls">
@@ -438,6 +445,7 @@
 
         <section class="scene" data-title="휘어진 등압선 위에서 — 경도풍">
           <div class="story"><div class="who">🧑‍✈️</div><div class="say"><span class="name">세영</span>“실제 일기도의 등압선은 곧지 않고 둥글게 휘어 있어요. 원을 따라 도는 공기에는 바깥으로 향하는 <b>원심력</b>이 더해집니다. 그러면 같은 기압 경도력이라도 저기압 주위와 고기압 주위의 풍속이 달라져요. 곡률 반지름을 바꿔 가며 확인해 보세요.”</div></div>
+          <div class="pv" data-key="p4-3" data-form="5"><p class="pv-q">기압 경도력의 크기가 같을 때, 고기압 주위와 저기압 주위 가운데 경도풍이 더 빠른 쪽은 어디일까요?</p><button class="pv-o" data-why="저기압은 날씨가 험하고 바람이 세다는 인상 때문에 그렇게 생각하기 쉽습니다. 실제 저기압 바람이 센 것은 기압 경도력 자체가 크기 때문이고, 기압 경도력이 같다면 원심력이 전향력과 함께 기압 경도력에 맞서 주는 저기압 쪽 바람이 더 느립니다.">저기압 주위</button><button class="pv-o" data-ok>고기압 주위</button><button class="pv-o" data-why="등압선이 곧을 때는 그렇지만, 휘어진 등압선을 따라 도는 공기에는 원심력이 더해집니다. 그래서 고기압 주위는 지균풍보다 빠르고 저기압 주위는 느려집니다.">둘 다 지균풍과 같다</button><p class="pv-a">원을 그리며 부는 <b>경도풍</b>에는 바깥쪽으로 <b>원심력</b>이 더해집니다. 고기압 주위에서는 전향력이 기압 경도력과 원심력을 함께 이겨야 해서 바람이 지균풍보다 빠르고, 저기압 주위에서는 지균풍보다 느립니다.</p></div>
           <div class="stage-card">
             <div class="canvas-wrap studio" data-kind="model calc" data-kind-pos="br"><canvas id="d-grad" width="900" height="440"></canvas></div>
             <div class="controls">
@@ -465,6 +473,7 @@
 
         <section class="scene" data-title="땅에 닿으면 비스듬해진다 — 지상풍">
           <div class="story"><div class="who">🧑‍✈️</div><div class="say"><span class="name">세영</span>“지표 가까이에서는 <b>마찰력</b>이 하나 더 붙습니다. 마찰은 바람을 느리게 하고, 느려지면 전향력도 함께 작아져요. 그러면 기압 경도력이 남아 바람이 저기압 쪽으로 끌려 들어갑니다. 지표의 거칠기를 바꿔 가며 등압선과 이루는 각을 재 보세요.”</div></div>
+          <div class="pv" data-key="p4-4" data-form="6"><p class="pv-q">지표가 거칠어져 마찰력이 커지면, 바람이 등압선과 이루는 각은 어떻게 될까요?</p><button class="pv-o" data-why="마찰이 바람을 붙잡아 흐름이 정돈될 것 같지만, 마찰로 바람이 느려지면 전향력도 작아집니다. 그러면 기압 경도력이 이겨 바람이 저기압 쪽으로 더 기울어집니다.">작아진다(등압선과 더 나란해진다)</button><button class="pv-o" data-why="마찰이 속도만 바꾼다고 생각하기 쉽지만, 속도가 줄면 전향력이 작아져 힘의 균형이 달라지므로 방향도 바뀝니다.">각은 그대로이고 풍속만 줄어든다</button><button class="pv-o" data-ok>커진다(저기압 쪽으로 더 가로질러 분다)</button><p class="pv-a">지표 부근에서는 <b>기압 경도력</b>·<b>전향력</b>·<b>마찰력</b>이 균형을 이룹니다. 마찰력이 클수록 바람이 느려지고 등압선을 더 큰 각으로 가로질러 저기압 쪽으로 불어 들어갑니다(<b>지상풍</b>).</p></div>
           <div class="stage-card">
             <div class="canvas-wrap studio" data-kind="model calc" data-kind-pos="br"><canvas id="d-sfc" width="900" height="450"></canvas></div>
             <div class="controls">
@@ -589,7 +598,7 @@
 </div>
 
 <button class="theme-toggle" id="themeToggle">라이트 모드</button>
-<script src="../assets/theme.js?v=b0f7ed73"></script>
+<script src="../assets/theme.js?v=f0b96aff"></script>
 <script src="../assets/scope.js?v=cecf172a"></script>
 <script src="../assets/kit.js?v=94e3bd47"></script>
 <script src="../assets/story.js?v=cd80882e"></script>
